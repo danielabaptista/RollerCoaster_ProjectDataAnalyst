@@ -61,5 +61,51 @@ df = df.rename(columns={'coaster_name':'Coaster_Name','year_introduced':'Year_In
 
 print(df.columns)
 
+#checking null values
+print(df.isna().sum())
+
+#checking duplicates
+print(df.loc[df.duplicated()])
+
+#checking duplicates in a subset
+print(df.loc[df.duplicated(subset="Coaster_Name")].head(5))
+
+#reviewing details
+print(df.query('Coaster_Name=="Crystal Beach Cyclone"'))
+
+#
+df = df.loc[~df.duplicated(subset=['Coaster_Name','Location','Opening_Date'])].reset_index(drop=True).copy()
+print(df)
+
+
+print(df['Year_Introduced'].value_counts())
+
+plt.figure(figsize=(6, 4))
+top_years = df['Year_Introduced'].value_counts().head(10)
+top_years.plot.bar()
+
+plt.title('Top 10 Years Coasters Introduced')
+plt.xlabel('Year Introduced')
+plt.ylabel('Count')
+plt.show()
+
+
+plt.figure(figsize=(6, 4))
+plt.hist(df['Speed_mph'], bins=20)
+plt.xlabel('Speed (mph)')
+plt.ylabel('Frequency')
+plt.title('Histogram of Coaster Speeds')
+plt.show()
+
+
+plt.figure(figsize=(6, 4))
+sns.kdeplot(df['Speed_mph'])
+plt.xlabel('Speed (mph)')
+plt.ylabel('Density')
+plt.title('Kernel Density Estimation (KDE) Plot of Coaster Speeds')
+plt.show()
+
+
+
 
 
