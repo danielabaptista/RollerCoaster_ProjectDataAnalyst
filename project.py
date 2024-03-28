@@ -128,11 +128,36 @@ plt.show()
 # Creating pair plot
 
 # Selecting variables of interest
-vars_of_interest = ['Year_Introduced', 'Speed_mph', 'Height_ft', 'Inversions', 'Gforce']
-
 sns.pairplot(df, vars=['Year_Introduced', 'Speed_mph', 'Height_ft', 'Inversions', 'Gforce'], hue='Type_Main')
 plt.suptitle('Pair Plot of Coaster Variables with Type_Main Hue', y=1.02)
 plt.show()
+
+# correlation
+df_corr = df[['Year_Introduced', 'Speed_mph', 'Height_ft', 'Inversions', 'Gforce']].dropna().corr()
+print(df_corr)
+
+# create heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(df_corr, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Heatmap of Correlation')
+plt.show()
+
+# what are the locations with the fastes roller coasters (min. 10)?
+
+# Filtering and grouping data
+speed_stats = df.query('Location != "Other"').groupby('Location')['Speed_mph'].agg(['mean', 'count'])
+
+# Filtering locations with 10 or more coasters and sorting by mean speed
+speed_stats_filtered = speed_stats[speed_stats['count'] >= 10].sort_values('mean')
+
+# Plotting horizontal bar chart
+plt.figure(figsize=(10, 8))
+speed_stats_filtered['mean'].plot.barh()
+plt.xlabel('Mean Speed (mph)')
+plt.ylabel('Location')
+plt.title('Mean Speed of Coasters by Location (Locations with 10 or more coasters)')
+plt.show()
+
 
 
 
