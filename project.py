@@ -105,6 +105,13 @@ plt.ylabel('Density')
 plt.title('Kernel Density Estimation (KDE) Plot of Coaster Speeds')
 plt.show()
 
+plt.figure(figsize=(6, 4))
+plt.scatter(df['Speed_mph'], df['Height_ft'])
+plt.xlabel('Speed (mph)')
+plt.ylabel('Height (ft)')
+plt.title('Coaster Speeds vs. Heights')
+plt.show()
+
 
 
 
