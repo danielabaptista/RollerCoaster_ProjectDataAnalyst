@@ -84,12 +84,13 @@ plt.figure(figsize=(6, 4))
 top_years = df['Year_Introduced'].value_counts().head(10)
 top_years.plot.bar()
 
+# Plot bar plot of top 10 Year_Introduced
 plt.title('Top 10 Years Coasters Introduced')
 plt.xlabel('Year Introduced')
 plt.ylabel('Count')
 plt.show()
 
-
+# Plot histogram of Speed_mph with 20 bins
 plt.figure(figsize=(6, 4))
 plt.hist(df['Speed_mph'], bins=20)
 plt.xlabel('Speed (mph)')
@@ -97,7 +98,7 @@ plt.ylabel('Frequency')
 plt.title('Histogram of Coaster Speeds')
 plt.show()
 
-
+# Plot KDE plot of Speed_mph
 plt.figure(figsize=(6, 4))
 sns.kdeplot(df['Speed_mph'])
 plt.xlabel('Speed (mph)')
@@ -105,12 +106,34 @@ plt.ylabel('Density')
 plt.title('Kernel Density Estimation (KDE) Plot of Coaster Speeds')
 plt.show()
 
+
+# scatter plot of Speed_mph vs. Height_ft
 plt.figure(figsize=(6, 4))
 plt.scatter(df['Speed_mph'], df['Height_ft'])
 plt.xlabel('Speed (mph)')
 plt.ylabel('Height (ft)')
 plt.title('Coaster Speeds vs. Heights')
 plt.show()
+
+
+# scatter plot with Seaborn
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='Speed_mph', y='Height_ft', hue='Year_Introduced', data=df)
+plt.xlabel('Speed (mph)')
+plt.ylabel('Height (ft)')
+plt.title('Coaster Speeds vs. Heights (Colored by Year Introduced)')
+plt.legend(title='Year Introduced')
+plt.show()
+
+# Creating pair plot
+
+# Selecting variables of interest
+vars_of_interest = ['Year_Introduced', 'Speed_mph', 'Height_ft', 'Inversions', 'Gforce']
+
+sns.pairplot(df, vars=['Year_Introduced', 'Speed_mph', 'Height_ft', 'Inversions', 'Gforce'], hue='Type_Main')
+plt.suptitle('Pair Plot of Coaster Variables with Type_Main Hue', y=1.02)
+plt.show()
+
 
 
 
